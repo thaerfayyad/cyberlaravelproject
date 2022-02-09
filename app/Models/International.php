@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class International extends Model
 {
     use HasFactory;
+    public function getImagePathAttribute()
+    {
+        return asset('uploads/internationals/' . $this->image);
+    }
 }

@@ -23,13 +23,17 @@
                     <form id="create-form">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">name </label>
+                                <label for="name">Title </label>
                                 <input type="text" class="form-control" id="title" placeholder="Enter name">
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea class="form-control" id="description" rows="3"
-                                    placeholder="Enter ..."></textarea>
+                                    placeholder="Enter Descriptions ..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Link</label>
+                                <input class="form-control" type="text" id="link" placeholder="Enter Link..."></input>
                             </div>
                             <div class="form-group">
                                 <label for="name">Logo </label>
@@ -58,6 +62,7 @@
     let formData = new FormData();
         formData.append('title',document.getElementById('title').value);
         formData.append('description',document.getElementById('description').value);
+        formData.append('link',document.getElementById('link').value);
         formData.append('image', document.getElementById('image').files[0])
         store('/admin/certificates', formData),'/admin/certificates/create';
 

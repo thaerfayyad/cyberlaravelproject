@@ -1,6 +1,6 @@
 @extends('cms.parent')
-@section('title', 'Categories')
-@section('page-big-title','category')
+@section('title', 'certificates')
+@section('page-big-title','certificates')
 @section('page-main-title','categories')
 @section('page-sub-title','index')
 @section('styles')
@@ -12,26 +12,28 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Title</th>
           <th>Descripions</th>
-          <th>Status</th>
+          <th>Link</th>
+          <th>Logo</th>
           <th>Created At</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-          @foreach ($categories as $category )
+          @foreach ($certificates as $certificate )
       <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ @$category->name }}</td>
-          <td>{{ $category->description }}</td>
-          <td> <span class="badge @if($category->status) bg-success @else bg-danger @endif  ">
-              {{ $category->visibility  }}</span></td>
+          <td>{{ @$certificate->title }}</td>
+          <td>{{ $certificate->description }}</td>
+          <td>{{ $certificate->link }}</td>
+          <td><img src="{{ $certificate->image_path }}" style="width: 80px"  class="img-thumbnail" alt=""></td>
 
-          <td>{{ $category->created_at }}</td>
+
+          <td>{{ $certificate->created_at }}</td>
           <td>
-              <a href="{{ route('admin.categories.edit',$category->id) }}" class="btn btn-info"> <i class="fas fa-edit"> </i></a>
-              <a href="#" onclick="confirmDestroy('{{ $category->id }}' ,this)"  class="btn btn-danger"><i class="fas fa-trash"></i></a>
+              <a href="{{ route('admin.certificates.edit',$certificate->id) }}" class="btn btn-info"> <i class="fas fa-edit"> </i></a>
+              <a href="#" onclick="confirmDestroy('{{ $certificate->id }}' ,this)"  class="btn btn-danger"><i class="fas fa-trash"></i></a>
           </td>
       </tr>
           @endforeach
@@ -61,7 +63,7 @@
       }
       function destroy(id, reference) {
         //JS axios
-        axios.delete('/admin/categories/'+id)
+        axios.delete('/admin/certificates/'+id)
             .then(function (response) {
             // handle success
             console.log(response);

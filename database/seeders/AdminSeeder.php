@@ -22,6 +22,6 @@ class AdminSeeder extends Seeder
             'password' => Hash::make(10201020),
 
         ]);
-        $user ->assignRole('super_admin');
+
     }
 }

@@ -9,6 +9,6 @@ class FrontController extends Controller
     //
     public function index()
     {
-    return view('front.parent');
+    return view('front.index');
     }
 }

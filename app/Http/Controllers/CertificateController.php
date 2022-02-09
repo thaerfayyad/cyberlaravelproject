@@ -16,7 +16,11 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        //
+        $data = Certificate::all();
+        // dd($data);
+        return response()->view('cms.certificate.index',[
+            'certificates'=>$data,
+        ]);
     }
 
     /**
@@ -42,6 +46,7 @@ class CertificateController extends Controller
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
+            'link' => 'string',
             'image' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
@@ -51,12 +56,14 @@ class CertificateController extends Controller
             $certificate->title = $request->input('title');
 
             $certificate->description = $request->input('description');
+            $certificate->link = $request->input('link');
 
             if ($request->hasFile('image')) {
+
                 $image = $request->file('image');
-                $imageName = Carbon::now()->format('Y_m_d_h_i') . '_' . $certificate->name . '.' . $image->getClientOriginalExtension();
-                $request->file('image')->storeAs('/certificates', $imageName, ['disk' => 'public']);
-                $certificate->image= 'certificates/' . $imageName;
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $certificate->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/certificates', $imageName);
+                $certificate->image= $imageName;
             }
             $isSaved = $certificate->save();
 
@@ -92,6 +99,7 @@ class CertificateController extends Controller
     public function edit(Certificate $certificate)
     {
         //
+        return view('cms.certificate.edit',['certificate' => $certificate]);
     }
 
     /**
@@ -103,7 +111,41 @@ class CertificateController extends Controller
      */
     public function update(Request $request, Certificate $certificate)
     {
-        //
+        $validator = Validator($request->all(),[
+
+            'title' => 'required|string|min:3|max:45',
+            'description' => 'nullable|string',
+            'link' => 'string',
+            'image' => 'required',
+            // 'status' => 'required|boolean',
+            // 'status' => 'required|boolean',
+        ]);
+        if(!$validator->fails()) {
+
+            $certificate->title = $request->input('title');
+
+            $certificate->description = $request->input('description');
+            $certificate->link = $request->input('link');
+
+            if ($request->hasFile('image')) {
+
+                $image = $request->file('image');
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $certificate->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/certificates', $imageName);
+                $certificate->image= $imageName;
+            }
+            $isSaved = $certificate->save();
+
+
+            return response()->json([
+                'message' => $isSaved ? 'Created successfully' : 'Create Failed'
+            ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
+
+        } else {
+            return response()->json([
+                'message' =>   $validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

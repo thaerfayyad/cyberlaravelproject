@@ -16,7 +16,10 @@ class KSAController extends Controller
      */
     public function index()
     {
-        //
+        $data = KSA::all();
+        return view('cms.ksa.index',[
+            'ksas' => $data,
+        ]);
     }
 
     /**
@@ -50,14 +53,15 @@ class KSAController extends Controller
         if (!$validator->fails()) {
             $ksa = new KSA();
             $ksa->title = $request->input('title');
+            $ksa->link = $request->input('link');
 
             $ksa->description = $request->input('description');
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = Carbon::now()->format('Y_m_d_h_i') . '_' . $ksa->name . '.' . $image->getClientOriginalExtension();
-                $request->file('image')->storeAs('/internationals', $imageName, ['disk' => 'public']);
-                $ksa->image = 'internationals/' . $imageName;
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $ksa->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/ksa', $imageName);
+                $ksa->image= $imageName;
             }
             $isSaved = $ksa->save();
 
@@ -89,9 +93,10 @@ class KSAController extends Controller
      * @param  \App\Models\KSA  $kSA
      * @return \Illuminate\Http\Response
      */
-    public function edit(KSA $kSA)
+    public function edit(KSA $ksa)
     {
         //
+        return view('cms.ksa.edit',['ksa' => $ksa]);
     }
 
     /**
@@ -101,9 +106,41 @@ class KSAController extends Controller
      * @param  \App\Models\KSA  $kSA
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KSA $kSA)
+    public function update(Request $request, KSA $ksa)
     {
         //
+        $validator = Validator($request->all(), [
+
+            'title' => 'required|string|min:3|max:45',
+            'description' => 'nullable|string',
+            'image' => 'required',
+            // 'status' => 'required|boolean',
+            // 'status' => 'required|boolean',
+        ]);
+        if (!$validator->fails()) {
+
+            $ksa->title = $request->input('title');
+            $ksa->link = $request->input('link');
+
+            $ksa->description = $request->input('description');
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $ksa->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/ksa', $imageName);
+                $ksa->image= $imageName;
+            }
+            $isSaved = $ksa->save();
+
+
+            return response()->json([
+                'message' => $isSaved ? 'Created successfully' : 'Create Failed'
+            ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
+        } else {
+            return response()->json([
+                'message' =>   $validator->getMessageBag()->first()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
@@ -112,9 +149,9 @@ class KSAController extends Controller
      * @param  \App\Models\KSA  $kSA
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KSA $kSA)
+    public function destroy(KSA $ksa)
     {
-        $isDelete = $kSA->delete();
+        $isDelete = $ksa->delete();
         return response()->json([
             'icon'  => $isDelete ? 'success' : 'error',
             'title' => $isDelete ? 'Delete successfully' : 'Delete Failed'

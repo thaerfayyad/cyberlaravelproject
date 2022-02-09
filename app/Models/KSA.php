@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class KSA extends Model
 {
     use HasFactory;
+    public function getImagePathAttribute()
+    {
+        return asset('uploads/ksa/' . $this->image);
+    }
 }

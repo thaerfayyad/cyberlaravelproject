@@ -17,6 +17,7 @@ class CreateInternationalsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->string('link');
             $table->string('image')->nullable();
             $table->timestamps();
         });

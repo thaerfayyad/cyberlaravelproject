@@ -7,7 +7,9 @@ use App\Http\Controllers\BrokerPermissionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\CybersecurityController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\GrcController;
 use App\Http\Controllers\InternationalController;
 use App\Http\Controllers\KSAController;
 use App\Http\Controllers\NotificationController;
@@ -52,6 +54,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
 
     Route::resource('certificates',CertificateController::class);
     Route::resource('internationals',InternationalController::class);
+    Route::resource('cybers',CybersecurityController::class);
+    Route::resource('Grces',GrcController::class);
     Route::resource('ksas',KSAController::class);
 });
 

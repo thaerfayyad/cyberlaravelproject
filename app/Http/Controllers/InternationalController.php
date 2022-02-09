@@ -16,7 +16,10 @@ class InternationalController extends Controller
      */
     public function index()
     {
-        //
+        $data = International::all();
+        return response()->view('cms.international.index',[
+            'internationals'=>$data,
+        ]);
     }
 
     /**
@@ -42,6 +45,7 @@ class InternationalController extends Controller
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
+            'link' => 'string',
             'image' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
@@ -49,14 +53,15 @@ class InternationalController extends Controller
         if(!$validator->fails()) {
             $international = new International();
             $international->title = $request->input('title');
+            $international->link = $request->input('link');
 
             $international->description = $request->input('description');
 
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = Carbon::now()->format('Y_m_d_h_i') . '_' . $international->name . '.' . $image->getClientOriginalExtension();
-                $request->file('image')->storeAs('/internationals', $imageName, ['disk' => 'public']);
-                $international->image= 'internationals/' . $imageName;
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $international->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/internationals', $imageName);
+                $international->image= $imageName;
             }
             $isSaved = $international->save();
 
@@ -91,7 +96,7 @@ class InternationalController extends Controller
      */
     public function edit(International $international)
     {
-        //
+        return view('cms.international.edit',['international' => $international]);
     }
 
     /**
@@ -104,6 +109,40 @@ class InternationalController extends Controller
     public function update(Request $request, International $international)
     {
         //
+        $validator = Validator($request->all(),[
+
+            'title' => 'required|string|min:3|max:45',
+            'description' => 'nullable|string',
+            'link' => 'string',
+            'image' => 'required',
+            // 'status' => 'required|boolean',
+            // 'status' => 'required|boolean',
+        ]);
+        if(!$validator->fails()) {
+
+            $international->title = $request->input('title');
+            $international->link = $request->input('link');
+
+            $international->description = $request->input('description');
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $international->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/internationals', $imageName);
+                $international->image= $imageName;
+            }
+            $isSaved = $international->save();
+
+
+            return response()->json([
+                'message' => $isSaved ? 'Created successfully' : 'Create Failed'
+            ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
+
+        } else {
+            return response()->json([
+                'message' =>   $validator->getMessageBag()->first()
+            ],Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**

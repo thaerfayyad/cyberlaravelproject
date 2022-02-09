@@ -1,8 +1,8 @@
 
 @extends('cms.parent')
-@section('title','category edit')
-@section('page-big-title','category')
-@section('page-main-title','categories')
+@section('title','certificate edit')
+@section('page-big-title','certificate')
+@section('page-main-title','certificates')
 @section('page-sub-title','edit')
 @section('styles')
 
@@ -24,24 +24,28 @@
             <form id="create-form">
                 <div class="card-body">
                 <div class="form-group">
-                    <label for="name">name </label>
-                    <input type="text" class="form-control" id="name" value="{{ $category->name }}"  placeholder="Enter name">
+                    <label for="name">Title </label>
+                    <input type="text" class="form-control" id="title" value="{{ $international->title }}"  placeholder="Enter name">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Enter ...">{{ $category->descriptions }}</textarea>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Enter ...">{{ $international->description }}</textarea>
                 </div>
                 <div class="form-group">
-                    <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="status" @if($category->status) checked @endif>
-                    <label class="custom-control-label" for="status">Visible</label>
-                    </div>
+                    <label for="link">Linke </label>
+                    <input type="text" class="form-control" id="link" value="{{ $international->title }}"  placeholder="Enter name">
                 </div>
+                <div class="form-group">
+                    <label for="name">Image </label>
+                    <input type="file" class="form-control" id="image" value="{{ $international->image }}"  placeholder="Enter name">
+                </div>
+                <td><img src="{{ $international->image_path }}" style="width: 80px"  class="img-thumbnail" alt=""></td>
+
 
                 <div class="card-footer">
                 {{--  <button type="button" onclick="store()" class="btn btn-primary">Submit</button>  --}}
 
-                <a href="#" onclick="update('{{ $category->id }}')"  class="btn btn-info">update</i></a>
+                <a href="#" onclick="performEdit()"  class="btn btn-info">update</i></a>
 
                 </div>
             </form>
@@ -55,22 +59,21 @@
 @endsection
 @section('scripts')
 <script>
-function update(id) {
-    axios.put('/admin/categories/'+id,{
-        name:document.getElementById('name').value,
-        description:document.getElementById('description').value,
-        status:document.getElementById('status').checked,
-    }).then(function (response) {
-            // handle success
-            console.log(response);
-           window.location.href ='/admin/categories';
-            toastr.success(response.data.message);
-        }).catch(function (error) {
-            // handle error
-            console.log(error);
-            toastr.error(error.response.data.message);
-        })
+
+
+function performEdit() {
+    let formData = new FormData();
+    formData.append('_method', 'PUT');
+    formData.append('title',document.getElementById('title').value);
+    formData.append('description',document.getElementById('description').value);
+    formData.append('link',document.getElementById('link').value);
+
+
+    formData.append('image', document.getElementById('image').files[0])
+    store('/admin/internationals/{{$international->id}}',formData,'/admin/internationals');
 
 }
+
+
 </script>
 @endsection

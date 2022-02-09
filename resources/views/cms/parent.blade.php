@@ -251,13 +251,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.create') }}" class="nav-link">
+                                    <a href="{{ route('admin.cybers.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Create</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.cybers.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Index</p>
                                     </a>
@@ -274,13 +274,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.create') }}" class="nav-link">
+                                    <a href="{{ route('admin.Grces.create') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Create</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.Grces.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Index</p>
                                     </a>
@@ -350,7 +350,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                    <a href="{{ route('admin.certificates.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Index</p>
                                     </a>

@@ -1,7 +1,7 @@
 @extends('cms.parent')
-@section('title', 'Categories')
-@section('page-big-title','category')
-@section('page-main-title','categories')
+@section('title', 'KSA')
+@section('page-big-title','ksa')
+@section('page-main-title','KSA')
 @section('page-sub-title','index')
 @section('styles')
 
@@ -12,26 +12,28 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Title</th>
           <th>Descripions</th>
-          <th>Status</th>
+          <th>link</th>
+          <th>image</th>
           <th>Created At</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-          @foreach ($categories as $category )
+          @foreach ($ksas as $ksa )
       <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ @$category->name }}</td>
-          <td>{{ $category->description }}</td>
-          <td> <span class="badge @if($category->status) bg-success @else bg-danger @endif  ">
-              {{ $category->visibility  }}</span></td>
+          <td>{{ @$ksa->title }}</td>
+          <td>{{ $ksa->description }}</td>
+          <td>{{ $ksa->link }}</td>
+          <td><img src="{{ $ksa->image_path }}" style="width: 80px"  class="img-thumbnail" alt=""></td>
 
-          <td>{{ $category->created_at }}</td>
+
+          <td>{{ $ksa->created_at }}</td>
           <td>
-              <a href="{{ route('admin.categories.edit',$category->id) }}" class="btn btn-info"> <i class="fas fa-edit"> </i></a>
-              <a href="#" onclick="confirmDestroy('{{ $category->id }}' ,this)"  class="btn btn-danger"><i class="fas fa-trash"></i></a>
+              <a href="{{ route('admin.ksas.edit',$ksa->id) }}" class="btn btn-info"> <i class="fas fa-edit"> </i></a>
+              <a href="#" onclick="confirmDestroy('{{ $ksa->id }}' ,this)"  class="btn btn-danger"><i class="fas fa-trash"></i></a>
           </td>
       </tr>
           @endforeach
@@ -61,7 +63,7 @@
       }
       function destroy(id, reference) {
         //JS axios
-        axios.delete('/admin/categories/'+id)
+        axios.delete('/admin/ksas/'+id)
             .then(function (response) {
             // handle success
             console.log(response);
