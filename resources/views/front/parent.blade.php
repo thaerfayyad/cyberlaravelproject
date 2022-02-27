@@ -46,16 +46,18 @@
 					</button>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        {{--  @auth  --}}
+
 						<ul class="nav navbar-nav menu_nav justify-content-center">
-							<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" href="{{ url('') }}">Home</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
 									aria-haspopup="true" aria-expanded="false">Cybersecurity</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="./level_one.html">level one </a></li>
-									<li class="nav-item"><a class="nav-link" href="./level_two.html">level two </a>
+									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',1) }}">level one </a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',2) }}">level two </a>
 									</li>
-									<li class="nav-item"><a class="nav-link" href="./level_three.html">level three </a>
+									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',3) }}">level three </a>
 									</li>
 
 
@@ -65,32 +67,44 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
 									aria-haspopup="true" aria-expanded="false">GRC </a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="./governance.html">governance </a></li>
-									<li class="nav-item"><a class="nav-link" href="./Risk.html">Risk</a>
+									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',1) }}">governance </a></li>
+									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',2) }}">Risk</a>
 									</li>
-									<li class="nav-item"><a class="nav-link" href="./compliance.html">compliance</a>
+									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',3) }}">compliance</a>
 									</li>
 								</ul>
 							</li>
 
-							<li class="nav-item"><a class="nav-link" href="./ksa.html">KSA Cybersecurity </a>
-							<li class="nav-item"><a class="nav-link" href="./certificate.html">international Cybersecurity </a>
-							<li class="nav-item"><a class="nav-link" href="./certificate.html">certificate </a>
+							<li class="nav-item"><a class="nav-link" href="{{ route('ksa') }}">KSA Cybersecurity </a>
+							<li class="nav-item"><a class="nav-link" href="{{ route('international') }}">international Cybersecurity </a>
+							<li class="nav-item"><a class="nav-link" href="{{ route('certificate') }}">certificate </a>
 						</ul>
 						<div class="dropdown user_name_div">
-							<a class="btn  btn-outline-light dropdown-toggle" href="#" role="button"
+							<a class="btn  btn-outline-light "  href="#" role="button"
 								id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								User Name
-
+                                {{@ Auth::user()->name }}
 							</a>
-
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item" href="Profile.html">Account</a>
-								<a class="dropdown-item" href="login.html">Logout </a>
-							</div>
 						</div>
+                       <a  href="{{ route('user.logout') }}"> <i class="fa fa-sign-out" style="font-size:40px;color:rgb(80, 76, 76)"></i></a>
+
+                        {{--  @else  --}}
+
+
+                        {{--  @endauth  --}}
+
+
+
+
 
 					</div>
+                    @guest
+                    <ul class="nav navbar-nav navbar-right" style="margin-bottom: 10px;margin-top: 10px" >
+                        <li class="nav-item"><a href="{{ route('user.register') }}" class="primary_btn " style=" text-transform: capitalize" > Register/Login</a></li>
+                    </ul>
+
+                    @endguest
+                    <br><br>
+
 				</div>
 			</nav>
 		</div>
@@ -141,6 +155,11 @@
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin_files/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/axios.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/crud.js') }}"></script>
 
 
 	<script src="{{ asset('front_files/js/jquery-3.2.1.min.js') }}"></script>

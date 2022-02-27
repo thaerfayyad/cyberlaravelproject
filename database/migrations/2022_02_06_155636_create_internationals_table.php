@@ -16,7 +16,7 @@ class CreateInternationalsTable extends Migration
         Schema::create('internationals', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->string('link');
             $table->string('image')->nullable();
             $table->timestamps();

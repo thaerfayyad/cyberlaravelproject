@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BrokerController;
 use App\Http\Controllers\BrokerPermissionController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\KSAController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SubcategoryController;
@@ -57,9 +59,29 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::resource('cybers',CybersecurityController::class);
     Route::resource('Grces',GrcController::class);
     Route::resource('ksas',KSAController::class);
+    Route::resource('questions', QuestionController::class);
+    Route::resource('answers',AnswerController::class);
+
+    Route::get('getVideo/{id]',['QuestionController@getVideo']);
+
 });
 
-Route::get('/',[FrontController::class, 'index']);
+Route::get('/register',[UserController::class, 'create'])->name('user.signin');
+Route::post('register',[UserController::class, 'store'])->name('user.register');
+Route::get('logout',[UserController::class, 'logout'])->name('user.logout');
+Route::post('user/login',[UserController::class, 'login'])->name('user.login');
+Route::get('user/login',[UserController::class, 'loginPage'])->name('user.login.page');
+
+
+
+Route::get('/',[FrontController::class, 'index'])->name('index');
+Route::get('/cybersecurity/{id}',[FrontController::class, 'cyberPages'])->name('cyberPages');
+Route::get('/cybersecurity/{id}/details',[FrontController::class, 'cyberDetails'])->name('cyberDetails');
+Route::post('/addComment',[FrontController::class, 'addComment'])->name('addComment');
+Route::get('grc/{id}',[FrontController::class, 'grcPages'])->name('grcPages');
+Route::get('certificate',[FrontController::class, 'certificate'])->name('certificate');
+Route::get('international',[FrontController::class, 'international'])->name('international');
+Route::get('ksa',[FrontController::class, 'ksa'])->name('ksa');
 Route::fallback(function () {
     //
 

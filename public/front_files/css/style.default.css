@@ -1,7 +1,7 @@
 *{
   padding: 0px;
   margin: 0px;
-  
+
 }
 
 /**********style login**************/
@@ -23,12 +23,12 @@
 
 
 .area{
-    background: #ddd6f3;  
-    background: -webkit-linear-gradient(to left, #ddd6f3, #faaca8);  
+    background: #ddd6f3;
+    background: -webkit-linear-gradient(to left, #ddd6f3, #faaca8);
     width: 100%;
     height:100vh;
-    
-   
+
+
 }
 
 .circles{
@@ -49,7 +49,7 @@
     background: rgb(185 13 180);
     animation: animate 25s linear infinite;
     bottom: -150px;
-    
+
 }
 
 .circles li:nth-child(1){
@@ -237,7 +237,7 @@
   margin-top: 10%;
   text-align: center;
   outline: none;
-  
+
 }
 .login_now {
   width: 200px;
@@ -283,8 +283,8 @@
 }
 .new1{
   width: 100%;
-  background-color: #cfcfcf;
-  box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+  background-color: #e0e5eb00;
+  box-shadow: rgba(90, 90, 167, 0.2) 0px 7px 29px 0px;
 }
 .left-div
 {

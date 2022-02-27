@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,8 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $data = User::withCount('permissions')->get();
-        return response()->view('cms.users.index',['users'=>$data]);
+
     }
 
     /**
@@ -29,7 +29,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return response()->view('cms.users.create');
+        return response()->view('front.auth.sigin');
     }
 
     /**
@@ -44,16 +44,19 @@ class UserController extends Controller
         $validator = Validator($request->all(),[
             'name' => 'required|string|min:3|max:45',
             'email' => 'required|email|string|unique:users,email',
-            'mobile'=>'required|numeric|digits:8|unique:users,mobile'
+            'password'=>'required|string|min:2|max:30|confirmed',
+            'password_confirmation'=>'required|string|min:2|max:30',
         ]);
         if(!$validator->fails()) {
             $user =new User();
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->mobile = $request->input('mobile');
-            $user->password = Hash::make('12345');
+
+            $user->password = Hash::make($request->input('password'));
 
             $isSave = $user->save();
+
+            auth()->guard('web')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")]   );
 
             return response()->json([
                 'message' => $isSave ? 'Created successfully' : 'Create Failed'
@@ -114,5 +117,33 @@ class UserController extends Controller
             'icon'  => $isDelete ? 'success' : 'error',
             'title' => $isDelete ? 'Delete successfully' : 'Delete Failed'
         ], $isDelete ? Response::HTTP_OK :Response::HTTP_BAD_REQUEST );
+
+    }
+    public function loginPage()
+    {
+        return view('front.auth.login');
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+
+        if (auth()->guard('web')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
+            return redirect()->route('index');
+        }
+        // notify()->error('خطا في البيانات  برجاء المجاولة مجدا ');
+        return redirect()->route('user.login.page')->with(['error' => 'incorrect information ']);
+
+    }
+    public function logout(Request $request)
+    {
+        //auth('admin')->logout();
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        return redirect()->route('user.login.page');
+
     }
 }

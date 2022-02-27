@@ -70,16 +70,16 @@
     </div>
     <!-- /.login-box -->
 
-    <!-- jQuery -->
-<script src="{{ asset('admin_files/plugins/jquery/jquery.min.js') }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('admin_files/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('admin_files/dist/js/adminlte.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset('admin_files/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{ asset('js/axios.js') }}"></script>
-<script>
+        <!-- jQuery -->
+    <script src="{{ asset('admin_files/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('admin_files/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('admin_files/dist/js/adminlte.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('admin_files/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/axios.js') }}"></script>
+    <script>
 
     function login() {
         axios.post('/admin/login',{

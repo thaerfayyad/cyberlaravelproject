@@ -16,7 +16,7 @@ class CreateKSASTable extends Migration
         Schema::create('k_s_a_s', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->longText('description');
             $table->string('link');
             $table->string('image')->nullable();
             $table->timestamps();

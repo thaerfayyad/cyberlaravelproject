@@ -23,12 +23,12 @@
                     <form id="create-form">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Level </label>
-                                <select class="form-control" name="" id="level">
-                                    <option value="">select the level</option>
-                                    <option value="0">level one</option>
-                                    <option value="1">level two</option>
-                                    <option value="2">level three</option>
+                                <label for="name">pages </label>
+                                <select class="form-control" name="" id="pages">
+                                    <option value="">select the Level</option>
+                                    <option value="1">level one</option>
+                                    <option value="2">level two</option>
+                                    <option value="3">level three</option>
 
 
 
@@ -44,7 +44,10 @@
                                 <textarea class="form-control" id="description" rows="3"
                                     placeholder="Enter Descriptions ..."></textarea>
                             </div>
-
+                            <div class="form-group">
+                                <label for="name">Cover Image </label>
+                                <input type="file" class="form-control" id="image" placeholder="Enter Image">
+                            </div>
                             <div class="form-group">
                                 <label for="name">Vedio URL </label>
                                 <input type="text" class="form-control" id="video" placeholder="Enter Video url">
@@ -72,7 +75,8 @@
     let formData = new FormData();
         formData.append('title',document.getElementById('title').value);
         formData.append('description',document.getElementById('description').value);
-        formData.append('level',document.getElementById('level').value);
+        formData.append('pages',document.getElementById('pages').value);
+        formData.append('image', document.getElementById('image').files[0])
         formData.append('video',document.getElementById('video').value);
 
         store('/admin/cybers', formData),'/admin/cybers/create';

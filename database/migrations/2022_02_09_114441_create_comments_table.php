@@ -15,10 +15,10 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('comment');
+            $table->longText('comment');
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('grc_id')->constrained('grcs')->cascadeOnDelete();
-            $table->foreignId('cybersecurity_id') ->constrained('cybersecurities') ->cascadeOnDelete();
+            $table->foreignId('grc_id')->nullable()->constrained('grcs')->cascadeOnDelete();
+            $table->foreignId('cybersecurity_id')->nullable()->constrained('cybersecurities') ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -22,18 +22,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::prefix('auth')->group(function () {
-    Route::post('login',[AuthController::class,'login']);
-    Route::post('user-login',[AuthController::class,'userLogin']);
-    Route::post('register',[AuthController::class,'register']);
-    Route::post('forget-password',[AuthController::class,'forgetPassword']);
-    Route::post('rest-password',[AuthController::class,'resetPassword']);
-});
-Route::get('cities',[CityController::class,'index']);
-Route::get('categories',[CategoryController::class,'index']);
+// Route::prefix('auth')->group(function () {
+//     Route::post('login',[AuthController::class,'login']);
+//     Route::post('user-login',[AuthController::class,'userLogin']);
+//     Route::post('register',[AuthController::class,'register']);
+//     Route::post('forget-password',[AuthController::class,'forgetPassword']);
+//     Route::post('rest-password',[AuthController::class,'resetPassword']);
+// });
+// Route::get('cities',[CityController::class,'index']);
+// Route::get('categories',[CategoryController::class,'index']);
 
 
-Route::prefix('auth')->middleware('auth:user-api')->group(function () {
-    Route::get('logout', [AuthController::class,'logout']);
+// Route::prefix('auth')->middleware('auth:user-api')->group(function () {
+//     Route::get('logout', [AuthController::class,'logout']);
 
-});
+// });

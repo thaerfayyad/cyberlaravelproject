@@ -357,6 +357,53 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    questions
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.questions.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.questions.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Index</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Answers
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.answers.create') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Create</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.answers.index') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Index</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
 
 
                     </ul>

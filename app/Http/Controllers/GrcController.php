@@ -17,7 +17,7 @@ class GrcController extends Controller
     {
         //
         $data = Grc::all();
-        return view('cms.grc.index',['grcs'=>$data]);
+        return view('cms.grc.index', ['grcs' => $data]);
     }
 
     /**
@@ -40,19 +40,19 @@ class GrcController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator($request->all(),[
+        $validator = Validator($request->all(), [
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
-            'level' => 'required|integer',
+            'pages' => 'required|integer',
             'video' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
         ]);
-        if(!$validator->fails()) {
+        if (!$validator->fails()) {
             $grc = new Grc();
             $grc->title = $request->input('title');
-            $grc->level = $request->input('level');
+            $grc->pages = $request->input('pages');
 
             $grc->description = $request->input('description');
             $grc->video = $request->input('video');
@@ -63,11 +63,10 @@ class GrcController extends Controller
             return response()->json([
                 'message' => $isSaved ? 'Created successfully' : 'Create Failed'
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-
         } else {
             return response()->json([
                 'message' =>   $validator->getMessageBag()->first()
-            ],Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -92,7 +91,7 @@ class GrcController extends Controller
     {
         //
         $grc = Grc::findOrFail($id);
-        return view('cms.grc.edit',['grc'=>$grc]);
+        return view('cms.grc.edit', ['grc' => $grc]);
     }
 
     /**
@@ -102,22 +101,22 @@ class GrcController extends Controller
      * @param  \App\Models\Grc  $grc
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         //
-        $validator = Validator($request->all(),[
+        $validator = Validator($request->all(), [
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
-            'level' => 'required|integer',
+            'pages' => 'required|integer',
             'video' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
         ]);
-        if(!$validator->fails()) {
+        if (!$validator->fails()) {
             $grc =  Grc::findOrFail($id);
             $grc->title = $request->input('title');
-            $grc->level = $request->input('level');
+            $grc->pages = $request->input('pages');
 
             $grc->description = $request->input('description');
             $grc->video = $request->input('video');
@@ -128,11 +127,10 @@ class GrcController extends Controller
             return response()->json([
                 'message' => $isSaved ? 'Updated successfully' : 'Update Failed'
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-
         } else {
             return response()->json([
                 'message' =>   $validator->getMessageBag()->first()
-            ],Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -150,6 +148,6 @@ class GrcController extends Controller
         return response()->json([
             'icon'  => $isDelete ? 'success' : 'error',
             'title' => $isDelete ? 'Delete successfully' : 'Delete Failed'
-        ], $isDelete ? Response::HTTP_OK :Response::HTTP_BAD_REQUEST );
+        ], $isDelete ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
     }
 }

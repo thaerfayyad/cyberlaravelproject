@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cybersecurity;
+use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ class CybersecurityController extends Controller
     {
         //
         $data = Cybersecurity::all();
-        return view('cms.cyber.index',['cybers' => $data]);
+        return view('cms.cyber.index', ['cybers' => $data]);
     }
 
     /**
@@ -41,34 +42,45 @@ class CybersecurityController extends Controller
     public function store(Request $request)
     {
         //
-        $validator = Validator($request->all(),[
+        $validator = Validator($request->all(), [
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
-            'level' => 'required|integer',
+            'pages' => 'required|integer',
             'video' => 'required',
+            'image' => 'required|image',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
         ]);
-        if(!$validator->fails()) {
+        if (!$validator->fails()) {
             $cyber = new Cybersecurity();
             $cyber->title = $request->input('title');
-            $cyber->level = $request->input('level');
-
-            $cyber->description = $request->input('description');
+            $cyber->pages = $request->input('pages');
             $cyber->video = $request->input('video');
 
-            $isSaved = $cyber->save();
+            $cyber->description = $request->input('description');
+
+
+            if ($request->hasFile('image')) {
+
+                $image = $request->file('image');
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $cyber->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/cover_img', $imageName);
+                $cyber->cover_img = $imageName;
+            }
+
+
+
+            $isSaved =  $cyber->save();
 
 
             return response()->json([
-                'message' => $isSaved ? 'Created successfully' : 'Create Failed'
+                'message' => $isSaved ? 'Created successfully' : 'Create Failed',
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-
         } else {
             return response()->json([
-                'message' =>   $validator->getMessageBag()->first()
-            ],Response::HTTP_BAD_REQUEST);
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -93,7 +105,7 @@ class CybersecurityController extends Controller
     {
         //
         $cybersecurity = Cybersecurity::findOrFail($id);
-        return view('cms.cyber.edit',['cybersecurity'=>$cybersecurity]);
+        return view('cms.cyber.edit', ['cybersecurity' => $cybersecurity]);
     }
 
     /**
@@ -106,34 +118,32 @@ class CybersecurityController extends Controller
     public function update(Request $request, Cybersecurity $cyber)
     {
         //
-        $validator = Validator($request->all(),[
+        $validator = Validator($request->all(), [
 
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
-            'level' => 'required|integer',
+            'pages' => 'required|integer',
             'video' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
         ]);
-        if(!$validator->fails()) {
+        if (!$validator->fails()) {
 
             $cyber->title = $request->input('title');
-            $cyber->level = $request->input('level');
+            $cyber->pages = $request->input('pages');
 
             $cyber->description = $request->input('description');
             $cyber->video = $request->input('video');
 
             $isSaved = $cyber->save();
 
-
             return response()->json([
-                'message' => $isSaved ? 'Created successfully' : 'Create Failed'
+                'message' => $isSaved ? 'Created successfully' : 'Create Failed',
             ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-
         } else {
             return response()->json([
-                'message' =>   $validator->getMessageBag()->first()
-            ],Response::HTTP_BAD_REQUEST);
+                'message' => $validator->getMessageBag()->first(),
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -149,8 +159,8 @@ class CybersecurityController extends Controller
         $cybersecurity = Cybersecurity::findOrFail($id);
         $isDelete = $cybersecurity->delete();
         return response()->json([
-            'icon'  => $isDelete ? 'success' : 'error',
-            'title' => $isDelete ? 'Delete successfully' : 'Delete Failed'
-        ], $isDelete ? Response::HTTP_OK :Response::HTTP_BAD_REQUEST );
+            'icon' => $isDelete ? 'success' : 'error',
+            'title' => $isDelete ? 'Delete successfully' : 'Delete Failed',
+        ], $isDelete ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST);
     }
 }

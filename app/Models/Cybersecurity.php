@@ -11,25 +11,18 @@ class Cybersecurity extends Model
 {
     use HasFactory;
 
+    public function questions ()
+    {
+        return $this->hasMany(Question::class);
+    }
 
+    public function getImagePathAttribute()
+    {
+        return asset('uploads/cover_img/' . $this->image);
+    }
 
-    // public function getLevelAttribute()
-    // {
-
-    //     switch ($this->level) {
-    //         case 1:
-    //             echo "level 1";
-    //             break;
-    //         case 2:
-    //             echo "level 2";
-    //             break;
-    //         case 3:
-    //             echo "level 3";
-    //             break;
-    //     }
-
-
-    // }
-
-
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
 }

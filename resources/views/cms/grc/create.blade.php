@@ -23,8 +23,8 @@
                     <form id="create-form">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="name">Level </label>
-                                <select class="form-control" name="" id="level">
+                                <label for="name">pages </label>
+                                <select class="form-control" name="" id="pages">
                                     <option value="">select the GRC</option>
                                     <option value="0">Governance</option>
                                     <option value="1">Risk</option>
@@ -72,7 +72,7 @@
     let formData = new FormData();
         formData.append('title',document.getElementById('title').value);
         formData.append('description',document.getElementById('description').value);
-        formData.append('level',document.getElementById('level').value);
+        formData.append('pages',document.getElementById('pages').value);
         formData.append('video',document.getElementById('video').value);
 
         store('/admin/Grces', formData),'/admin/Grces/create';

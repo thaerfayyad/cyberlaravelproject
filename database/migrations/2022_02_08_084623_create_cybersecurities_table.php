@@ -16,8 +16,9 @@ class CreateCybersecuritiesTable extends Migration
         Schema::create('cybersecurities', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
-            $table->enum('level', [1, 2, 3])->default(1);
+            $table->longText('description');
+            $table->string('cover_img');
+            $table->enum('pages', [1, 2, 3])->default(1);
             $table->text('video')->nullable();
             $table->string('rating')->nullable();
             $table->timestamps();

@@ -66,4 +66,8 @@ class User extends Authenticatable
     {
         return ucfirst($value);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
