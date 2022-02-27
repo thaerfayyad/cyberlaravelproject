@@ -72,4 +72,4 @@ class FrontController extends Controller
         return redirect()->back();
     }
 
-}
+}//end o controller
