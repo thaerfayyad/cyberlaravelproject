@@ -16,10 +16,10 @@ class CreateAnswersTable extends Migration
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->string('answer');
+            $table->string('answer_question_id')->default(0);
             $table->enum('correct', [0,1])->default(1);
             $table->integer('count')->default(0);
             $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
-
             $table->timestamps();
         });
     }

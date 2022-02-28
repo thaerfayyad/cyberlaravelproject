@@ -82,9 +82,10 @@ Route::get('grc/{id}',[FrontController::class, 'grcPages'])->name('grcPages');
 Route::get('certificate',[FrontController::class, 'certificate'])->name('certificate');
 Route::get('international',[FrontController::class, 'international'])->name('international');
 Route::get('ksa',[FrontController::class, 'ksa'])->name('ksa');
-Route::fallback(function () {
+Route::post('answer_to',[FrontController::class, 'answer_to'])->name('answer_to');
+Route::get('test',function () {
     //
-
+    return now();
 
 });
 

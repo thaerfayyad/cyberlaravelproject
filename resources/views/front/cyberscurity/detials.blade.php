@@ -5,48 +5,49 @@
         <div class="row">
             <div class="col-lg-8 posts-list">
                 <div class="single-post row">
+
                     <div class="col-lg-12">
                         <div class="feature-img">
-                            <iframe width="750" height="400" src=" {{ $item->video }}" frameborder="0" allowfullscreen>
-                            </iframe>
+                            <iframe width="750" height="400" src=" {{ $item->video }}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
 
                     <div class="col-lg-9 col-md-9 blog_details">
                         <h2>{{ $item->title }}</h2>
                         <p class="excert">
-
                             {{ $item->description }}
                         </p>
-
                     </div>
-
-
-
 
                 </div>
                 <hr>
                 <div>
                     <h4 class="text-center">questions</h4>
-
+                    <form method="POST" action="{{ route('answer_to') }}">
+                        @csrf
                     <div class="media-body">
-                        @foreach ($questions as $question )
-                        <a ><h3>{{ $question->question }}</h3></a>
-
+                        @foreach ($questions as $question)
+                        <a>
+                            <h3>{{ $question->question }}</h3>
+                            <input type="number" name="question_id" value="{{ $question->id }}" hidden>
+                        </a>
                         <ol>
-                            @foreach ($answers  as $answer )
+                            @foreach ($question->answers  as $answer)
+                                
+                                <li>
+                                    <input type="radio" id="vehicle1" name="answer_id" value="{{ $answer->id }}" required> 
+                                    {{ $answer->answer }}
+                                </li>
 
                             @endforeach
-                            <li><input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"> {{ $answer->answer }}</li>
-
-
                         </ol>
                         @endforeach
 
                     </div>
-
-
-
+                        {{-- <button class="btn btn-black">Back</button> --}}
+                        <button class="btn btn-primary">Next</button>
+                    </form>
+                    {{-- {{ $questions->appends(request()->query())->links() }} --}}
                 </div>
 
 
@@ -58,8 +59,8 @@
                 <div class="blog_right_sidebar">
 
 
-                    <aside class="single_sidebar_widget popular_post_widget div-scroll-news" style="word-wrap: break-word;>
-                        <h3 class="widget_title">Comments</h3>
+                    <aside class="single_sidebar_widget popular_post_widget div-scroll-news" style="word-wrap: break-word;">
+                        <h3 class="">Comments</h3>
                         @foreach ($comments as  $comment)
                         <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">

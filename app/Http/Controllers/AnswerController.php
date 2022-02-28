@@ -27,7 +27,8 @@ class AnswerController extends Controller
     public function create()
     {
         //
-        $data = Question::all();
+        $data = Question::withCount('answers')->get();
+
         return view('cms.answer.create',['items'=>$data]);
     }
 
@@ -39,29 +40,26 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator($request->all(), [
 
-            'answer' => 'required|string|min:3|max:45',
-            'question_id' => 'nullable|string',
-
+        $request->validate([
+            'question_id'        => ['required','numeric'],
+            'answers'            => ['required','array'],
+            'answer_question_id' => ['required','numeric'],
         ]);
-        if (!$validator->fails()) {
-            $answer = new Answer();
-            $answer->answer = $request->input('answer');
-            $answer->question_id = $request->input('question_id');
 
-          $isSaved =  $answer->save();
+        foreach ($request->answers as $key => $answer) {
+            
+             Answer::create([
+                'question_id'        => $request->question_id,
+                'answer'             => $answer,
+                'answer_question_id' => $request->answer_question_id == $key ? 1 : 0,
+            ]);
 
+        }//end of each
 
-            return response()->json([
-                'message' => $isSaved ? 'Created successfully' : 'Create Failed',
-            ], $isSaved ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST);
-        } else {
-            return response()->json([
-                'message' => $validator->getMessageBag()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-    }
+        return redirect()->back();
+
+    }//end of store
 
     /**
      * Display the specified resource.
