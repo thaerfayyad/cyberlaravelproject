@@ -12,9 +12,15 @@
 
                       </div>
                        <div class="col-md-9">
+
+                            @for ($i = 0; $i < $item->rating; $i++)
+                                <i class="fa fa-star"></i>
+                            @endfor
+
                            <div class="blog_post">
 
                               <a href=""><img src="{{ asset('/uploads/cover_img/'.$item->cover_img) }}" style="width: 600px"  class="img-thumbnail" alt="">
+
 
                           </a>
                                <div class="blog_details">

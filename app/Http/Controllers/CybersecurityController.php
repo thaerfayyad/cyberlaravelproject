@@ -57,6 +57,7 @@ class CybersecurityController extends Controller
             $cyber->title = $request->input('title');
             $cyber->pages = $request->input('pages');
             $cyber->video = $request->input('video');
+            $cyber->rating = $request->input('rating');
 
             $cyber->description = $request->input('description');
 

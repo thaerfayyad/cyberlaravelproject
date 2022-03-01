@@ -17,6 +17,9 @@
                         <p class="excert">
                             {{ $item->description }}
                         </p>
+                        @for ($i = 0; $i < $item->rating; $i++)
+                            <i class="fa fa-star"></i>
+                        @endfor
                     </div>
 
                 </div>
@@ -30,6 +33,8 @@
                         <a>
                             <h3>{{ $question->question }}</h3>
                             <input type="number" name="question_id" value="{{ $question->id }}" hidden>
+                            <input type="number" name="user_id" value="1" hidden>
+                            <input type="number" name="iid" value="{{ $iid }}" hidden>
                         </a>
                         <ol>
                             @foreach ($question->answers  as $answer)

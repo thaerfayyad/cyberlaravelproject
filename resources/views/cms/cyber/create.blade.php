@@ -22,6 +22,7 @@
                     <!-- form start -->
                     <form id="create-form">
                         <div class="card-body">
+
                             <div class="form-group">
                                 <label for="name">pages </label>
                                 <select class="form-control" name="" id="pages">
@@ -29,9 +30,6 @@
                                     <option value="1">level one</option>
                                     <option value="2">level two</option>
                                     <option value="3">level three</option>
-
-
-
                                 </select>
                             </div>
 
@@ -39,6 +37,16 @@
                                 <label for="name">title </label>
                                 <input type="text" class="form-control"id="title" placeholder="Enter name">
                             </div>
+
+                            <div class="form-group">
+                                <label for="name">rating </label>
+                                <select class="form-control" name="rating" id="rating">
+                                    @for ($i = 1; $i < 6; $i++)
+                                        <option>{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea class="form-control" id="description" rows="3"
@@ -76,11 +84,10 @@
         formData.append('title',document.getElementById('title').value);
         formData.append('description',document.getElementById('description').value);
         formData.append('pages',document.getElementById('pages').value);
+        formData.append('rating',document.getElementById('rating').value);
         formData.append('image', document.getElementById('image').files[0])
         formData.append('video',document.getElementById('video').value);
-
         store('/admin/cybers', formData),'/admin/cybers/create';
-
-}
+    }
 </script>
 @endsection

@@ -18,12 +18,30 @@ class FrontController extends Controller
     
     public function answer_to(Request $request)
     {
-        AnswerQuestion::create($request->all());
-        $id = '1';
+        // return $request->all();
+        if (!$request->iid) {
+            $level_id = AnswerQuestion::first()->level_id;
+            $question_id = AnswerQuestion::where('level_id',$level_id)->pluck('question_id')->unique();
 
-         $question = Question::where('id',$request->question_id  + 1)->paginate(1);
+            $data = Question::with('answers')->whereIn('id',$question_id)
+                                  ->get();
+
+            return view('front.cyberscurity.answer',[
+                'items'=>$data,
+            ]);
+            
+        }
+        // AnswerQuestion::first()->with('answers')->get();
+
+        $request_data = $request->except('iid');
+        $request_data['level_id'] = $request->iid;
+        $data = AnswerQuestion::create($request_data);
+        $id = $request->iid;
+
+        $question = Question::where('id',$request->question_id  + 1)->paginate(1);
          if (!$question) {
-             return 'adfa';
+            return $data = AnswerQuestion::where('question_id',$request->question_id)->get();
+
          }
 
         $answer   = Answer::all();
@@ -34,7 +52,8 @@ class FrontController extends Controller
              'item'=>$data,
              'comments' =>$comments,
              'questions' =>$question,
-             'answers' =>$answer
+             'answers' =>$answer,
+             'iid' =>$id
             ]);
 
     }//end of answer_to
@@ -46,6 +65,7 @@ class FrontController extends Controller
 
     public function cyberPages($id)
     {
+
         $data = Cybersecurity::where('pages','=',$id)->get();
 
         return view('front.cyberscurity.index',['items'=>$data]);
@@ -63,7 +83,8 @@ class FrontController extends Controller
              'item'=>$data,
              'comments' =>$comments,
              'questions' =>$question,
-             'answers' =>$answer
+             'answers' =>$answer,
+             'iid' =>$id,
             ]);
     }
     public function grcPages($id)
