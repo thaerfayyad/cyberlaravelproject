@@ -49,8 +49,13 @@
                         @endforeach
 
                     </div>
+
+                        @if ($questions->count() > 0)
+                            <button class="btn btn-primary">Next</button>
+                        @else
+                            <button class="btn btn-primary">finish</button>
+                        @endif
                         {{-- <button class="btn btn-black">Back</button> --}}
-                        <button class="btn btn-primary">Next</button>
                     </form>
                     {{-- {{ $questions->appends(request()->query())->links() }} --}}
                 </div>
