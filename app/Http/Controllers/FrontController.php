@@ -20,14 +20,21 @@ class FrontController extends Controller
     {
         // return $request->all();
         if (!$request->iid) {
-            $level_id = AnswerQuestion::first()->level_id;
-            $question_id = AnswerQuestion::where('level_id',$level_id)->pluck('question_id')->unique();
 
-            $data = Question::with('answers')->whereIn('id',$question_id)
-                                  ->get();
+            $level_id    = AnswerQuestion::latest()->first()->level_id;
+            $question_id = AnswerQuestion::where('level_id',$level_id)->pluck('question_id')->unique();
+            $answers     = AnswerQuestion::where('level_id',$level_id)->pluck('answer_id')->unique();
+            $answe_count = Answer::whereIn('id', $answers)->where('answer_question_id',1)->count();
+
+            $data = Question::with('answers')->whereIn('id',$question_id)->get();
+
+            $data_count = Question::with('answers')->whereIn('id',$question_id)->count();
 
             return view('front.cyberscurity.answer',[
                 'items'=>$data,
+                'data_count'=>$data_count,
+                'answers'=>$answers,
+                'answe_count'=>$answe_count,
             ]);
             
         }

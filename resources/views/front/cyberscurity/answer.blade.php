@@ -12,12 +12,15 @@
                         <p class="excert">
                             {{-- {{ $item->description }} --}}
                         </p>
+                        
+                        {{ $data_count }} / {{ $answe_count }}
+
                         @foreach ($items as $item)  
-                            <h3>{{ $item->question }}</h3>
+                            {{-- <h3>{{ $item->question }}</h3>
 
                             @foreach ($item->answers as $answers)
                                 <p class="{{ $answers->answer_question_id == 1 ? 'text-success ' : '' }}">{{ $answers->answer }}</p>    
-                            @endforeach
+                            @endforeach --}}
 
                         @endforeach
                     </div>
@@ -48,7 +51,7 @@
                                 <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Comment" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                             </div>
 
-                            <input type="hidden" name="user_id" value="{{@ Auth::user()->id }}">
+                            <input type="hidden" name="user_id" value="{{@Auth::user()->id }}">
                             {{--  <input type="hidden" name="grc_id" value="{{ $item->id }}">  --}}
                             <input type="hidden" name="cybersecurity_id" value="{{ $item->id }}">
                             <button  class="primary-btn primary_btn mycomment_button" ><span>Post Comment</span></button>
