@@ -126,10 +126,9 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|min:6',
         ]);
-
 
         if (auth()->guard('web')->attempt(['email' => $request->input("email"), 'password' => $request->input("password")])) {
             return redirect()->route('index');

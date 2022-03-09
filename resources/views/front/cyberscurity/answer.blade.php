@@ -51,7 +51,7 @@
                                 <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Comment" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                             </div>
 
-                            <input type="hidden" name="user_id" value="{{@Auth::user()->id }}">
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             {{--  <input type="hidden" name="grc_id" value="{{ $item->id }}">  --}}
                             <input type="hidden" name="cybersecurity_id" value="{{ $item->id }}">
                             <button  class="primary-btn primary_btn mycomment_button" ><span>Post Comment</span></button>

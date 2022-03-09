@@ -45,29 +45,32 @@
             </div>
             <br>
             <h3 class="text-primary text-center">Sign In</h3>
+            
             <br><br>
+            
             @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-            <form method="POST" action="{{route('user.login')}}">
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('user.login') }}">
                 @csrf
                 <div class="form_login">
 
                     <div class="input_div">
-                        <input type="email" class="input_form" placeholder=" Email" name="email" required value="{{ old('email') }}">
+                        <input type="email" value="user@app.com" class="input_form" placeholder=" Email" name="email" required value="{{ old('email') }}">
                         @error('email')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="input_div">
-                        <input type="password" class="input_form" placeholder="Password" name="password">
+                        <input type="password" class="input_form" value="123123123" placeholder="Password" name="password">
                         @error('password')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror

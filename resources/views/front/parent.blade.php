@@ -35,8 +35,9 @@
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src={{ asset('front_files/"img/.png') }}" alt=""
-							style="height: 50px;"></a>
+					<a class="navbar-brand logo_h" href="index.html">
+						<img src="{{ asset('front_files/"img/.png') }}" style="height: 50px;">
+					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
@@ -54,13 +55,15 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
 									aria-haspopup="true" aria-expanded="false">Cybersecurity</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',1) }}">level one </a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',2) }}">level two </a>
+									<li class="nav-item">
+										<a class="nav-link" href="{{ route('cyberPages',1) }}">level one</a>
 									</li>
-									<li class="nav-item"><a class="nav-link" href="{{ route('cyberPages',3) }}">level three </a>
+									<li class="nav-item">
+										<a class="nav-link" href="{{ route('cyberPages',2) }}">level two</a>
 									</li>
-
-
+									<li class="nav-item">
+										<a class="nav-link" href="{{ route('cyberPages',3) }}">level three</a>
+									</li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">

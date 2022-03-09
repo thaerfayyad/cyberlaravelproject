@@ -33,7 +33,7 @@
                         <a>
                             <h3>{{ $question->question }}</h3>
                             <input type="number" name="question_id" value="{{ $question->id }}" hidden>
-                            <input type="number" name="user_id" value="1" hidden>
+                            <input type="number" name="user_id" value="{{ auth()->id() }}" hidden>
                             <input type="number" name="iid" value="{{ $iid }}" hidden>
                         </a>
                         <ol>
@@ -99,7 +99,7 @@
                                 <textarea class="form-control mb-10" rows="5" name="comment" placeholder="Comment" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                             </div>
 
-                            <input type="hidden" name="user_id" value="{{@ Auth::user()->id }}">
+                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                             {{--  <input type="hidden" name="grc_id" value="{{ $item->id }}">  --}}
                             <input type="hidden" name="cybersecurity_id" value="{{ $item->id }}">
                             <button  class="primary-btn primary_btn mycomment_button" ><span>Post Comment</span></button>

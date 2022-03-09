@@ -80,6 +80,9 @@ class FrontController extends Controller
 
     public function cyberDetails($id)
     {
+        $AnswerQuestionCount = AnswerQuestion::where('level_id', $id)
+                                                                ->where('user_id',auth()->id())->get();
+
         $question = Question::where('cybersecurity_id','=',$id)->paginate(1);
 
         $answer   = Answer::all();
@@ -113,6 +116,7 @@ class FrontController extends Controller
     public function ksa()
     {
         $data = KSA::all();
+
         return view('front.ksa.index',['items'=>$data]);
     }
 

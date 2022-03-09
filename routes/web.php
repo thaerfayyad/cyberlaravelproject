@@ -75,8 +75,8 @@ Route::get('user/login',[UserController::class, 'loginPage'])->name('user.login.
 
 
 Route::get('/',[FrontController::class, 'index'])->name('index');
-Route::get('/cybersecurity/{id}',[FrontController::class, 'cyberPages'])->name('cyberPages');
-Route::get('/cybersecurity/{id}/details',[FrontController::class, 'cyberDetails'])->name('cyberDetails');
+Route::get('/cybersecurity/{id}',[FrontController::class, 'cyberPages'])->name('cyberPages')->middleware('auth');
+Route::get('/cybersecurity/{id}/details',[FrontController::class, 'cyberDetails'])->name('cyberDetails')->middleware('auth');
 Route::post('/addComment',[FrontController::class, 'addComment'])->name('addComment');
 Route::get('grc/{id}',[FrontController::class, 'grcPages'])->name('grcPages');
 Route::get('certificate',[FrontController::class, 'certificate'])->name('certificate');
