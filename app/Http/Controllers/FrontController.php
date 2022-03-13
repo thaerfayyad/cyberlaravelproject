@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
-    
+
     public function answer_to(Request $request)
     {
         // return $request->all();
@@ -36,7 +36,7 @@ class FrontController extends Controller
                 'answers'=>$answers,
                 'answe_count'=>$answe_count,
             ]);
-            
+
         }
         // AnswerQuestion::first()->with('answers')->get();
 
@@ -70,10 +70,10 @@ class FrontController extends Controller
         return view('front.index');
     }
 
-    public function cyberPages($id)
+    public function cyberPages()
     {
 
-        $data = Cybersecurity::where('pages','=',$id)->get();
+        $data = Cybersecurity::get();
 
         return view('front.cyberscurity.index',['items'=>$data]);
     }
@@ -97,9 +97,9 @@ class FrontController extends Controller
              'iid' =>$id,
             ]);
     }
-    public function grcPages($id)
+    public function grcPages()
     {
-        $data = Grc::where('pages','=',$id)->get();
+        $data = Grc::get();
 
          return view('front.grc.index',['items'=>$data]);
     }

@@ -75,10 +75,10 @@ Route::get('user/login',[UserController::class, 'loginPage'])->name('user.login.
 
 
 Route::get('/',[FrontController::class, 'index'])->name('index');
-Route::get('/cybersecurity/{id}',[FrontController::class, 'cyberPages'])->name('cyberPages')->middleware('auth');
+Route::get('/cybersecurity',[FrontController::class, 'cyberPages'])->name('cyberPages')->middleware('auth');
 Route::get('/cybersecurity/{id}/details',[FrontController::class, 'cyberDetails'])->name('cyberDetails')->middleware('auth');
 Route::post('/addComment',[FrontController::class, 'addComment'])->name('addComment');
-Route::get('grc/{id}',[FrontController::class, 'grcPages'])->name('grcPages');
+Route::get('grc',[FrontController::class, 'grcPages'])->name('grcPages');
 Route::get('certificate',[FrontController::class, 'certificate'])->name('certificate');
 Route::get('international',[FrontController::class, 'international'])->name('international');
 Route::get('ksa',[FrontController::class, 'ksa'])->name('ksa');

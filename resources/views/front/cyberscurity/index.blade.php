@@ -12,11 +12,28 @@
 
                       </div>
                        <div class="col-md-9">
+                        <br><br>
+                        <h2>
+                            @switch($item->pages)
+                            @case(1)
+                                {{ "level one" }}
+                                @break
+                           @case(2)
+                               {{ "level two" }}
+                               @break
+                          @case(3)
+                               {{ "level three" }}
+                               @break
+
+                            @default
+
+                        @endswitch
+                        </h2>
 
                             @for ($i = 0; $i < $item->rating; $i++)
                                 <i class="fa fa-star"></i>
                             @endfor
-
+                            <br><br>
                            <div class="blog_post">
 
                               <a href=""><img src="{{ asset('/uploads/cover_img/'.$item->cover_img) }}" style="width: 600px"  class="img-thumbnail" alt="">
@@ -24,6 +41,7 @@
 
                           </a>
                                <div class="blog_details">
+
                                    <a href="single-blog.html"><h2>{{ $item->title }}</h2></a>
                                    <p>{{ $item->description }}.</p>
                                    @php
@@ -43,12 +61,12 @@
                                                 $totle = $data_count . '/' . $answe_count;
 
                                             }//end of if
-                                   @endphp  
+                                   @endphp
                                    <p>{{ auth()->user()->name }} : {{ $totle }}</p>
                                    @if ($totle == 0)
                                    <a href="{{ route('cyberDetails',$item->id) }}" class="primary_btn"><span>View More</span></a>
                                    @else
-                                   <a href="" class="primary_btn"><span>finsh</span></a>
+                                   <p class="btn btn-success ">completed  </p>
                                    @endif
                                </div>
                            </div>

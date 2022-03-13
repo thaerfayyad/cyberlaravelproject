@@ -1,7 +1,7 @@
 @extends('cms.parent')
-@section('title','cybersecurtiy create')
-@section('page-big-title','cybersecurtiy')
-@section('page-main-title','cybersecurtiys')
+@section('title','GRC create')
+@section('page-big-title','GRC')
+@section('page-main-title','GRC')
 @section('page-sub-title','create')
 @section('styles')
 
@@ -16,7 +16,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">cybersecurtiy Create</h3>
+                        <h3 class="card-title">GRC Create</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -26,9 +26,9 @@
                                 <label for="name">pages </label>
                                 <select class="form-control" name="" id="pages">
                                     <option value="">select the GRC</option>
-                                    <option value="0">Governance</option>
-                                    <option value="1">Risk</option>
-                                    <option value="2">Complance</option>
+                                    <option value="1">Governance</option>
+                                    <option value="2">Risk</option>
+                                    <option value="3">Complance</option>
 
 
 
@@ -43,6 +43,10 @@
                                 <label>Description</label>
                                 <textarea class="form-control" id="description" rows="3"
                                     placeholder="Enter Descriptions ..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Cover Image </label>
+                                <input type="file" class="form-control" id="image" placeholder="Enter Image">
                             </div>
 
                             <div class="form-group">
@@ -73,6 +77,7 @@
         formData.append('title',document.getElementById('title').value);
         formData.append('description',document.getElementById('description').value);
         formData.append('pages',document.getElementById('pages').value);
+        formData.append('image', document.getElementById('image').files[0])
         formData.append('video',document.getElementById('video').value);
 
         store('/admin/Grces', formData),'/admin/Grces/create';

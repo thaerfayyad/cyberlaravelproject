@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grc;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,6 +46,7 @@ class GrcController extends Controller
             'title' => 'required|string|min:3|max:45',
             'description' => 'nullable|string',
             'pages' => 'required|integer',
+            'image' => 'required|image',
             'video' => 'required',
             // 'status' => 'required|boolean',
             // 'status' => 'required|boolean',
@@ -56,6 +58,14 @@ class GrcController extends Controller
 
             $grc->description = $request->input('description');
             $grc->video = $request->input('video');
+
+            if ($request->hasFile('image')) {
+
+                $image = $request->file('image');
+                $imageName = Carbon::now()->format('Y_m_d_h_i') . $grc->name . '.' . $image->getClientOriginalExtension();
+                $request->file('image')->move('uploads/cover_img', $imageName);
+                $grc->cover_img = $imageName;
+            }
 
             $isSaved = $grc->save();
 

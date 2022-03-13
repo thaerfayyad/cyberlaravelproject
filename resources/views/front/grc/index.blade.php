@@ -8,14 +8,32 @@
 
                   @forelse ($items as $item )
                   <article class="row blog_item">
-                    <div class="col-md-3">
 
-                    </div>
+
                      <div class="col-md-9">
-                         <div class="blog_post">
-                            <a href=""> <iframe width="550" height="400" src=" {{ $item->video }}" frameborder="0" allowfullscreen>
-                            </iframe>
-                        </a>
+                        <h2>
+
+                            @switch($item->pages)
+                            @case(1)
+                                {{ "Governance" }}
+                                @break
+                           @case(2)
+                               {{ "Risk" }}
+                               @break
+                          @case(3)
+                               {{ "Complance" }}
+                               @break
+
+                            @default
+
+                        @endswitch
+                         </h2>
+                         <div class="blog_post  text-center">
+
+
+                              <a href=""><img src="{{ asset('/uploads/cover_img/'.$item->cover_img) }}" style="width: 500px"  class="img-thumbnail" alt="">
+
+
                              <div class="blog_details">
                                  <a href="single-blog.html"><h2>{{ $item->title }}</h2></a>
                                  <p>{{ $item->description }}.</p>

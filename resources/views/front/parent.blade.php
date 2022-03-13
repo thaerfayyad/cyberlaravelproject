@@ -51,32 +51,8 @@
 
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 							<li class="nav-item active"><a class="nav-link" href="{{ url('') }}">Home</a></li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-									aria-haspopup="true" aria-expanded="false">Cybersecurity</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item">
-										<a class="nav-link" href="{{ route('cyberPages',1) }}">level one</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="{{ route('cyberPages',2) }}">level two</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="{{ route('cyberPages',3) }}">level three</a>
-									</li>
-								</ul>
-							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-									aria-haspopup="true" aria-expanded="false">GRC </a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',1) }}">governance </a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',2) }}">Risk</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="{{ route('grcPages',3) }}">compliance</a>
-									</li>
-								</ul>
-							</li>
+							<li class="nav-item "><a class="nav-link" href="{{ route('cyberPages') }}">Cybersecurity</a></li>
+							<li class="nav-item "><a class="nav-link" href="{{ route('grcPages') }}">GRC</a></li>
 
 							<li class="nav-item"><a class="nav-link" href="{{ route('ksa') }}">KSA Cybersecurity </a>
 							<li class="nav-item"><a class="nav-link" href="{{ route('international') }}">international Cybersecurity </a>

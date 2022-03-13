@@ -6,7 +6,7 @@
         <div class="col-lg-8 mb-5 text-center">
             <div class="main_title">
 
-                <h2 style="color: #8D5BF9;"> KSA CYBERSECURITY websites </h2>
+                <h2 style="color: #8D5BF9;"> KSA CYBERSECURITY </h2>
             </div>
 
 
